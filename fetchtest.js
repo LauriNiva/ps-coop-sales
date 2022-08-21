@@ -17,10 +17,10 @@ const PLAT_URL = 'https://platprices.com/api.php'
 
 const fetchSalesData = async () => {
 
-  //const fetchedData1 = await axios.get(`${PLAT_URL}?key=${PLAT_API_KEY}&sales=1&region=FI`)
-  const fetchedData1 = await axios.get('https://platprices.com/api.php?key=GBT6Fzct103ONOddJNWm2aqwRhfbtvK8&sales=1&region=FI')
+  const fetchedData1 = await axios.get(`${PLAT_URL}?key=${PLAT_API_KEY}&sales=1&region=FI`)
+  //const fetchedData1 = await axios.get('https://platprices.com/api.php?key=GBT6Fzct103ONOddJNWm2aqwRhfbtvK8&sales=1&region=FI')
 
-  console.log('fetchedData1', fetchedData1.data)
+  //console.log('fetchedData1', fetchedData1.data)
 
   const activeSales = fetchedData1.data.sales;
 
