@@ -8,11 +8,15 @@ const saleIds = Object.keys(gamesWithCoopData);
 
 saleIds.forEach(saleId =>
   gamesWithCoopData[saleId]
-    .forEach(game => game.local = game.coopData
-      .map(coop => coop.local[0])
+    .forEach(game => {
+      game.local = game.coopData.map(coop => coop.local[0])
+      game.campaign = game.coopData.map(coop => coop.campaign[0])
+
+    }
     )
 )
 
+console.log(gamesWithCoopData)
 
 const GameCard = ({ game }) => {
   //console.log(game.local)
@@ -38,15 +42,19 @@ const GameCard = ({ game }) => {
 
 function App() {
 
-  const [localCoop, setLocalCoop] = useState(false);
+  const [hasLocalCoop, sethasLocalCoop] = useState(false);
+  const [hasCampaign, setHasCampaign] = useState(false);
 
 
   const FilterButtons = () => {
 
     return (
       <div>
-        <button onClick={() => setLocalCoop(!localCoop)}>
-          {localCoop ? 'Local Only' : 'Local & Online '}
+        <button onClick={() => sethasLocalCoop(!hasLocalCoop)}>
+          {hasLocalCoop ? 'Local Only' : 'Local & Online '}
+        </button>
+        <button onClick={() => setHasCampaign(!hasCampaign)}>
+          {hasLocalCoop ? 'Campaign Only' : 'Campaign & Rest'}
         </button>
       </div>
     )
@@ -59,7 +67,7 @@ function App() {
       {
         saleIds.map(saleId =>
           gamesWithCoopData[saleId].map(game => {
-            if (localCoop && game.local.every(i => i === '0')) return null;
+            if (hasLocalCoop && game.local.every(i => i === '0')) return null;
             return <GameCard key={game.PPID} game={game} />
           }
           ))
