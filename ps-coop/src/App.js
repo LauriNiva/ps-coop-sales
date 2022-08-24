@@ -5,18 +5,22 @@ import { useState } from 'react';
 
 const saleIds = Object.keys(gamesWithCoopData);
 
+const combinedGamesFromSales = [];
 
 saleIds.forEach(saleId =>
   gamesWithCoopData[saleId]
     .forEach(game => {
       game.local = game.coopData.map(coop => coop.local[0])
       game.campaign = game.coopData.map(coop => coop.campaign[0])
-
+      combinedGamesFromSales.push(game)
     }
     )
 )
 
-console.log(gamesWithCoopData)
+
+
+//console.log(gamesWithCoopData)
+//console.log(combinedGamesFromSales)
 
 const GameCard = ({ game }) => {
   //console.log(game.local)
@@ -45,6 +49,18 @@ function App() {
   const [hasLocalCoop, sethasLocalCoop] = useState(false);
   const [hasCampaign, setHasCampaign] = useState(false);
 
+  let gamesToShow = combinedGamesFromSales;
+  
+  if (hasLocalCoop) {
+    gamesToShow = gamesToShow.filter(game => game.local.some(i => i !== '0'));
+  }
+  if (hasCampaign) {
+    gamesToShow = gamesToShow.filter(game => game.campaign.some(i => i !== '0'));
+  }
+
+
+
+  
 
   const FilterButtons = () => {
 
@@ -54,7 +70,7 @@ function App() {
           {hasLocalCoop ? 'Local Only' : 'Local & Online '}
         </button>
         <button onClick={() => setHasCampaign(!hasCampaign)}>
-          {hasLocalCoop ? 'Campaign Only' : 'Campaign & Rest'}
+          {hasCampaign ? 'Campaign Only' : 'Campaign & Rest'}
         </button>
       </div>
     )
@@ -65,12 +81,7 @@ function App() {
     <div className="App">
       <FilterButtons />
       {
-        saleIds.map(saleId =>
-          gamesWithCoopData[saleId].map(game => {
-            if (hasLocalCoop && game.local.every(i => i === '0')) return null;
-            return <GameCard key={game.PPID} game={game} />
-          }
-          ))
+        gamesToShow.map(game => <GameCard key={game.PPID} game={game} /> )      
       }
     </div>
   );
