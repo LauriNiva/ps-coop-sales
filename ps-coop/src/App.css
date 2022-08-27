@@ -19,7 +19,21 @@ body {
   width: 30vh;
 }
 
+.game-card-price {
+  position: relative;
+}
 
+.game-card-price:hover::before {
+  position: absolute;
+  
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  content: attr(data-tooltip);
+  padding: 0.5rem;
+  background-color: rgb(36, 31, 57);
+  border-radius: 5px;
+  border: 1px solid rgb(36, 31, 57);
+}
 
 .game-card-body {
   flex: 1;
@@ -27,3 +41,22 @@ body {
   color: rgb(228, 216, 216);
 }
 
+.game-card-cooptimus {
+  border: 1px solid;
+  border-color: rgb(36, 31, 57);
+  border-radius: 5px;
+  padding: 5px;
+
+
+}
+.game-card-cooptimus a{
+  color: inherit;
+  text-decoration: inherit;
+}
+.game-card-cooptimus h5{
+  margin: 0;
+}
+.game-card-cooptimus p{
+  margin: 0;
+  margin-top: 5px;
+}

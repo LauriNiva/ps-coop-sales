@@ -35,8 +35,17 @@ const GameCard = ({ game }) => {
 
         <h2>{game.Name}</h2>
 
-        <h5>{game.formattedSalePrice}({game.formattedBasePrice})</h5>
-        {game.coopData.map(coopgame => <h5 key={coopgame.id}>{coopgame.title}</h5>)}
+        <h5 className="game-card-price" data-tooltip={`Ends: ${game.DiscountedUntil}`}>{game.formattedSalePrice}({game.formattedBasePrice})</h5>
+        
+        {
+        game.coopData.map(coopgame => 
+        <div className="game-card-cooptimus">
+          <a href={coopgame.url} target="_blank" rel="noreferrer"> <p key={coopgame.id}>{coopgame.title} ↗</p></a>
+          <p>{coopgame.coopexp}</p>
+        </div>
+        )
+        }
+        
       </div>
     </div>
   )
